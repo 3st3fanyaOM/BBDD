@@ -1,0 +1,159 @@
+BORRAR TABLA
+
+drop table productos cascade constraints;
+
+CREAR TABLA
+
+create table productos (
+    referencia char (5),
+    nombre varchar2 (50),
+    tipo varchar2 (50),
+    color varchar2 (25),
+    precio number (5,2)
+    
+);
+
+RENOMBRAR TABLA
+
+rename nombretabla to nombrenuevo;
+
+AÑADIR CAMPO
+
+alter table productos add id_fabricante integer;
+
+BORRAR CAMPO
+
+alter table productos drop column id_fabricante;
+
+RENOMBRAR CAMPO
+
+alter table productos rename column id_fabricante to id_fabric;
+
+MODIFICAR MAXIMO VALOR
+
+alter table alumnos modify apellido varchar2 (200);
+
+
+CREAR PRIMARY KEY
+
+alter table coches 
+    add constraint idcoche primary key(id);
+
+OTRA FORMA
+
+alter table coches
+	add primary key (id);
+
+OTRA
+
+create table alumnos1 (
+    dni char (9) primary key,
+    nombre varchar2 (15),
+    apellido varchar2 (50)
+);
+
+FOREIGN KEY
+
+idCoche es foreign key de ID en
+COCHES
+
+alter table compras 
+    add foreign key (idCoche)references coches(id);
+
+alter table coches 
+    add foreign key(campo)REFERENCES nombretabladedondees (columnaPK);
+
+FOREIGN KEY CON NUEVO NOMBRE
+
+alter table coches 
+    add constraint nuevonombrefk foreign key(campo)REFERENCES nombretabladedondees (columnaPK);
+
+CAMBIAR NOMBRE DE PK O FK
+
+alter table nombretabla rename constraint nombrerestriccion to nuevonombrerestriccion;
+
+BORRAR FK O PK
+
+alter table nombretabla drop constraint nombredelarestriccion; (está en tablas referencias copiar y pegar)
+
+PRIMARY KEY CON 2 CAMPOS
+
+create table piezas (
+codigo int,
+idAlmacen int,
+nombre varchar(50),
+peso number,
+primary key (codigo,idAlmacen)------------
+);
+
+
+CHECK en tabla
+
+create table piezas (
+id int check (id>0),
+nombre varchar2 (100),
+id_fabricante int
+);
+
+check con alter
+
+alter table piezas
+    add check (id>0);
+
+check con alter cambiando nombre
+
+alter table piezas
+	add constraint nombrecheck
+	check(id>0);
+
+EXPRESIONES REGULARES
+
+campo char (9) primary key check (REGEXP_LIKE  (campo,'R[0-9]{3}-2023')),
+
+email varchar2 (100) check (email like '%_@__%.__%')
+
+
+DNI
+check (regexp_like(dni,'[0-9]{8}[A-Z]')),
+
+AÑADIR CAMPO Y HACER CHECK
+
+alter table piezas
+    add codigo char(5);
+    
+alter table piezas
+    add check (regexp_like(codigo,'P[0-9]^3[A-Z]'))
+
+CHECK COMPARAR CADENA DE 
+
+CHECK (campo = ‘UNO’ OR campo = ‘DOS’)
+CHECK (campo IN (‘UNO’,’DOS))
+
+alter table fabricantes
+    add check (marca in ('FABRIC1','FABRIC2','FABRIC3'));
+
+INSERTAR VALOR A TODOS LOS CAMPOS
+
+insert into tabla values ('R111-2023','Geranio','maceta','Si','Pl',9,56);
+insert into tabla (campo1,campo2) values ('valor1','valor2');
+
+CAMPO EN MAYUSCULAS
+check (campo = upper (campo));
+
+FECHAS
+
+CHECK(FECHA BETWEEN DATE ‘2022-01-15’
+AND DATE ‘2022-01-18’)
+
+CHECK(FECHA NOT BETWEEN DATE ‘2022-
+01-15’ AND DATE ‘2022-01-18’)
+
+check (fecha_devolucion > fecha_prestamo +15); 
+
+ACTUALIZAR 
+
+UPDATE Tabla SET CAMPO =  'VALOR' where id = valor;
+
+BORRAR DATOS
+
+delete from  Tabla where id = valor;
