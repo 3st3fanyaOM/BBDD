@@ -1,0 +1,138 @@
+CONSULTAS
+
+SELECT * FROM tabla;
+
+SELECT * FROM tabla WHERE campo = 'nombreCampo';
+
+SELECT campo FROM tabla;
+
+SELECT distinct posicion from futbolistas;   (no repite valores)
+
+
+
+ALIAS
+
+SELECT campo "aliasCampo" from tabla;     (comillas dobles)
+
+
+SELECT campo  from tabla alias; (de tabla sin comillas)
+
+
+select
+    ID "id",
+    nombre "nombre",
+    apellidos "apellidos",
+    fecha_nacimiento "fecha de nacimiento",
+    posicion "posicion",
+    salario "salario actual",
+    id_equipo "identificador equipo actual"
+
+from futbolistas;
+
+
+RELACION ENTRE TABLAS
+
+select * from tabla1,tabla2 where campoFK = tabla1.PK;
+
+
+ORDER BY
+
+SELECT columnas FROM tablas WHERE CONDICIONES order by columnas ASC/DESC;
+
+select nombre, apellidos, salario
+    from futbolistas
+    order by salario; (por defecto ascendente)
+
+select nombre, apellidos, salario
+    from futbolistas
+    order by nombre desc; (alfabetico descendente) 
+
+en caso de empate nueva ordenacion:
+
+select nombre, apellidos, salario
+    from futbolistas
+    order by apellidos desc, --salario desc----;
+
+ordenando poniendo numeros a las columnas
+
+select nombre, apellidos, salario
+    from futbolistas
+    order by 2 desc, 3 desc;
+
+order by fecha_nacimiento;
+
+
+OPERADORES (proxy) % varios caract _ un caracter
+
+
+
+select (4+4)*3 || 'a' from dual;
+select to_char(sysdate,'dd/mm/yy hh:mi:ss') from dual;
+posicion = 'DEFENSA' or posicion = 'PORTERO';
+posicion in ('DEFENSA','PORTERO');
+posicion = 'DEFENSA' and salario > 100000;
+where salario between 100000 and 200000;
+between '10-07-2023' and '12-1-2024';
+
+
+EXPRESIONES REGULARES 
+
+where lower/upper(campo) like '_e%'; (% puede no ser nada) 
+select id from futbolistas where apellidos like 'G%'; (empiece por G)
+
+like '%Z' (termina en Z)  like 'E_S%' (E, 1 caract, S y despues ...) 
+
+CONTAR 
+
+select count (campo) from  tabla; (da numero de registros)
+
+**Todas las opers sobre null, dan null
+
+OPERACIONES 
+
+select 4 * (4+3) + null from dual;
+
+select presupuesto + 50 from equipos;
+
+aplicar el 10 % -- salario + (salario * 0.10)
+
+ejemplo:
+
+select nombre, apellidos, salario + (salario * 0.10) "nuevo_salario" 
+    from futbolistas 
+    where posicion 
+    like 'PORTERO' 
+    order by apellidos;
+
+CONCATENACION
+
+SELECT 'lo que sea' || 'lo que sea' from dual;
+SELECT 'lo que sea' || campo from tabla;
+SELECT apellidos || ' , ' || nombre from tabla;
+select nombre || ' es ' || posicion "Posiciones" from futbolistas;
+
+ORDEN EVALUACION
+
+ 1. * y después / al mismo nivel
+ 2. + y 3. || 
+ 4.Comparaciones (<, >, >=, …) 
+ 5. IS NULL, IS NOT NULL, LIKE, BETWEEN 
+ 6.NOT 
+ 7. AND 
+ 8.OR
+
+
+
+
+FUNCIONES
+
+select lower (apellidos) || ' , ' || initcap(nombre) from futbolistas;
+
+nombreFuncion ();
+
+INNER JOIN
+
+
+
+
+
